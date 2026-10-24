@@ -12,7 +12,7 @@ module.exports.renderNewforms=(req, res) => {
 
 module.exports.showListing=async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate({path:"reviews",populate:{path:"author",},}).populate("Owner");
+    const listing = await Listing.findById(id).populate({path:"reviews",populate:{path:"author",},}).populate("owner");
     if (!listing) {
         req.flash("error", "listing you requested does not exist");
         return res.redirect("/listings"); // <-- Bas 'return' lagana hai
@@ -60,7 +60,7 @@ module.exports.createListing=async (req,res,next)=>{
     let filename=req.file.filename; 
 
     const newListing=new Listing(req.body.listing);
-    newListing.Owner=req.user._id; 
+    newListing.owner=req.user._id; 
     newListing.image={url,filename};
     await newListing.save();
     // console.log(listing);

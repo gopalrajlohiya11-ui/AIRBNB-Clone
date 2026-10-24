@@ -29,7 +29,7 @@ const initDB = async () => {
     // Har listing ke sath teri owner ID attach karo
     initData.data = initData.data.map((obj) => ({
       ...obj,
-      owner: "6ac06bd6a16463776f9c1766",
+      owner: "6add197c2d92ab78cb65bb38",
     }));
 
     await Listing.insertMany(initData.data);
