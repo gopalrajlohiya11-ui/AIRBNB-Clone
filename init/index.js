@@ -2,11 +2,19 @@
 const dns = require("node:dns");
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
+
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
-const dbUrl = "mongodb+srv://gopallohiya36_db_user:J76rJ3vJjpKf9zfe@cluster0.mkad6yp.mongodb.net/wanderlust?appName=Cluster0";
+const dbUrl = process.env.ATLASDB_URL;
+
+if (!dbUrl) {
+  console.error("Error: ATLASDB_URL is not defined in your .env file!");
+  process.exit(1);
+}
 
 async function main() {
   await mongoose.connect(dbUrl);
